@@ -51,14 +51,15 @@ async function processData(data) {
 
 async function main() {
   try {
+    console.time("Data retrieval and processing time");
     const data = await pihole.getData();
     console.log(data);
     await processData(data);
     updateLastActivity();
+    console.timeEnd("Data retrieval and processing time");
   } catch (error) {
     console.error(`Failed to retrieve data from the API: ${error}`);
   }
 }
 
 setInterval(main, 1000 * 60 * 60);
-
