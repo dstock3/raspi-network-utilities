@@ -1,6 +1,7 @@
 const dotenv = require('dotenv');
 dotenv.config();
-
+const express = require('express');
+const app = express();
 const PiHole = require('pihole');
 
 const pihole = new PiHole(process.env.WEBPASSWORD);
@@ -63,3 +64,8 @@ async function main() {
 }
 
 setInterval(main, 1000 * 60 * 60);
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
