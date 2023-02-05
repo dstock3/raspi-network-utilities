@@ -4,7 +4,7 @@ dotenv.config();
 const PiHole = require('pihole');
 
 const pihole = new PiHole(process.env.WEBPASSWORD);
-console.log(pihole)
+
 let lastActivity = Date.now();
 
 setInterval(() => {
