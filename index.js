@@ -6,6 +6,14 @@ const PiHole = require("pihole");
 const pihole = new PiHole(process.env.WEBPASSWORD);
 const port = process.env.PORT || 3000;
 
+const cors = require('cors');
+
+app.use(cors());
+
+app.use(cors({
+  origin: process.env.ORIGIN || 'http://localhost:3000',
+}));
+
 let logs = [];
 
 let lastActivity = Date.now();
