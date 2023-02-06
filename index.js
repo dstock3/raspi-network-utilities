@@ -9,6 +9,7 @@ const port = process.env.PORT || 3000;
 
 
 app.get("/queries", async (req, res) => {
+  //Get DNS queries data
   let QUERY_ENDPOINT = process.env.ENDPOINT + '?getAllQueries&auth=' + process.env.WEBPASSWORD
 
   let response = await axios.get(QUERY_ENDPOINT);
@@ -18,6 +19,19 @@ app.get("/queries", async (req, res) => {
   
   res.send(data);
 });
+
+app.get("/query-types", async (req, res) => {
+  //Shows number of queries that the Pi-hole's DNS server has processed
+  let QUERYTYPE_ENDPOINT = process.env.ENDPOINT + '?getQueryTypes&auth=' + process.env.WEBPASSWORD
+
+  let response = await axios.get(QUERYTYPE_ENDPOINT);
+  console.log(response["data"])
+
+  res.send(response["data"]);
+});
+
+
+
 
 
 /*
