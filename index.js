@@ -6,45 +6,37 @@ const PiHole = require("pihole");
 const axios = require('axios');
 const port = process.env.PORT || 3000;
 
+const proccessEndpoint = (queryType, pw=process.env.WEBPASSWORD, endpoint=process.env.ENDPOINT) => {
+  return endpoint + `?${queryType}&auth=${pw}`
+}
+
 app.get("/", async (req, res) => {
   //Gives summary in raw format (no formatting)
-  let SUMMARY_ENDPOINT = process.env.ENDPOINT + '?summaryRaw&auth=' + process.env.WEBPASSWORD
+  let SUMMARY_ENDPOINT = proccessEndpoint('summaryRaw')
   let response = await axios.get(SUMMARY_ENDPOINT);
   let data = response["data"];
-  console.log(data)
   res.send(data);
 });
 
 app.get("/queries", async (req, res) => {
   //Get DNS queries data
-  let QUERY_ENDPOINT = process.env.ENDPOINT + '?getAllQueries&auth=' + process.env.WEBPASSWORD
-
+  let QUERY_ENDPOINT = proccessEndpoint('getAllQueries')
   let response = await axios.get(QUERY_ENDPOINT);
-
   let data = response["data"]["data"];
-  console.log(data)
-  
   res.send(data);
 });
 
 app.get("/query-types", async (req, res) => {
   //Shows number of queries that the Pi-hole's DNS server has processed
-  let QUERYTYPE_ENDPOINT = process.env.ENDPOINT + '?getQueryTypes&auth=' + process.env.WEBPASSWORD
-
+  let QUERYTYPE_ENDPOINT = proccessEndpoint('getQueryTypes')
   let response = await axios.get(QUERYTYPE_ENDPOINT);
-  console.log(response["data"])
-
   res.send(response["data"]);
 });
 
 app.get("/over-time-10-mins", async (req, res) => {
   //Data for generating the domains/ads over time (10 mins)
-
-  let OVERTIME_ENDPOINT = process.env.ENDPOINT + '?overTimeData10mins&auth=' + process.env.WEBPASSWORD
-
+  let OVERTIME_ENDPOINT = proccessEndpoint('overTimeData10mins')
   let response = await axios.get(OVERTIME_ENDPOINT);
-  console.log(response["data"])
-
   res.send(response["data"]);
 });
 /*
