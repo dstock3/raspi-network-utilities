@@ -37,10 +37,16 @@ app.get("/query-types", async (req, res) => {
   res.send(response["data"]);
 });
 
+app.get("/over-time-10-mins", async (req, res) => {
+  //Data for generating the domains/ads over time (10 mins)
 
+  let OVERTIME_ENDPOINT = process.env.ENDPOINT + '?overTimeData10mins&auth=' + process.env.WEBPASSWORD
 
+  let response = await axios.get(OVERTIME_ENDPOINT);
+  console.log(response["data"])
 
-
+  res.send(response["data"]);
+});
 /*
 
 const cors = require('cors');
