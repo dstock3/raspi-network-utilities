@@ -3,8 +3,24 @@ const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
 const PiHole = require("pihole");
-const pihole = new PiHole(process.env.WEBPASSWORD);
+const axios = require('axios');
 const port = process.env.PORT || 3000;
+
+
+
+app.get("/queries", async (req, res) => {
+  let QUERY_ENDPOINT = process.env.ENDPOINT + '?getAllQueries&auth=' + process.env.WEBPASSWORD
+
+  let response = await axios.get(QUERY_ENDPOINT);
+
+  let data = response["data"]["data"];
+  console.log(data)
+  
+  res.send(data);
+});
+
+
+/*
 
 const cors = require('cors');
 
@@ -66,14 +82,11 @@ async function processData(data) {
   }
 }
 
-app.get("/logs", (req, res) => {
-  res.send(logs);
-});
-
 async function main() {
   try {
+    const pihole = new PiHole(process.env.WEBPASSWORD);
     console.time("Data retrieval and processing time");
-    const data = await pihole.getData();
+    const data = await pihole.getAllQueries();
     console.log(data);
     logs.push(data);
     await processData(data);
@@ -86,6 +99,25 @@ async function main() {
 }
 
 setInterval(main, 1000 * 60 * 60);
+
+app.get("/logs", (req, res) => {
+  res.send(logs);
+});
+
+app.get("/queries", async (req, res) => {
+  
+  try {
+    const pihole = new PiHole(process.env.WEBPASSWORD);
+    const data = await pihole.getAllQueries();
+    res.send(data);
+  } catch (error) {
+    console.error(`Failed to retrieve data from the API: ${error}`);
+    res.send(`Failed to retrieve data from the API: ${error}`);
+  }
+});
+
+
+*/
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
