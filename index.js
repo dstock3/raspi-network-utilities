@@ -7,7 +7,7 @@ const axios = require('axios');
 const port = process.env.PORT || 3000;
 
 app.get("/", async (req, res) => {
-  //Gives statistics in raw format (no formatting)
+  //Gives summary in raw format (no formatting)
   let SUMMARY_ENDPOINT = process.env.ENDPOINT + '?summaryRaw&auth=' + process.env.WEBPASSWORD
   let response = await axios.get(SUMMARY_ENDPOINT);
   let data = response["data"];
