@@ -58,6 +58,36 @@ const apiFunctions = {
     desc: "Shows the # of queries that have been forwarded to upstream DNS servers and the target IP address",
     route: "/forward-destinations",
     nested: false
+  },
+  enable: {
+    name: "enable",
+    desc: "Enable Pi-hole",
+    route: "/enable",
+    nested: false
+  },
+  disable: {
+    name: "disable",
+    desc: "Disable Pi-hole",
+    route: "/disable",
+    nested: false
+  },
+  version: {
+    name: "version",
+    desc: "Get Pi-hole version",
+    route: "/version",
+    nested: false
+  },
+  type: {
+    name: "type",
+    desc: "Get API backend type for Pi-hole",
+    route: "/type",
+    nested: false
+  },
+  recentlyBlocked: {
+    name: "recentlyBlocked",
+    desc: "Get recently blocked domains",
+    route: "/recently-blocked",
+    nested: false
   }
 }
 
