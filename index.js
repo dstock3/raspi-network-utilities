@@ -10,12 +10,18 @@ const proccessEndpoint = (queryType, pw=process.env.WEBPASSWORD, endpoint=proces
   return endpoint + `?${queryType}&auth=${pw}`
 }
 
-app.get("/", async (req, res) => {
-  //Gives summary in raw format (no formatting)
-  let SUMMARY_ENDPOINT = proccessEndpoint('summaryRaw')
-  let response = await axios.get(SUMMARY_ENDPOINT);
+const processRoute = async (queryType) => {
+  let endpoint = proccessEndpoint(queryType)
+  let response = await axios.get(endpoint);
   let data = response["data"];
-  res.send(data);
+  return data
+}
+
+//Gives summary in raw format (no formatting)
+
+app.get("/", async (req, res) => {
+  let data = await processRoute('summaryRaw')
+  res.send(data);  
 });
 
 app.get("/queries", async (req, res) => {
@@ -33,12 +39,35 @@ app.get("/query-types", async (req, res) => {
   res.send(response["data"]);
 });
 
+app.get("/query-sources", async (req, res) => {
+  //Data for top clients
+  let QUERYSOURCE_ENDPOINT = proccessEndpoint('getQuerySources')
+  let response = await axios.get(QUERYSOURCE_ENDPOINT);
+  res.send(response["data"]);
+});
+
 app.get("/over-time-10-mins", async (req, res) => {
   //Data for generating the domains/ads over time (10 mins)
   let OVERTIME_ENDPOINT = proccessEndpoint('overTimeData10mins')
   let response = await axios.get(OVERTIME_ENDPOINT);
   res.send(response["data"]);
 });
+
+app.get("/top-items", async (req, res) => {
+  //Data for generating the top domains and/or ad lists
+  let TOPITEMS_ENDPOINT = proccessEndpoint('topItems')
+  let response = await axios.get(TOPITEMS_ENDPOINT);
+  res.send(response["data"]);
+});
+
+app.get("/forward-destinations", async (req, res) => {
+  //Shows the # of queries that have been forwarded to upstream DNS servers and the target IP address
+  let FORWARDDEST_ENDPOINT = proccessEndpoint('getForwardDestinations')
+  let response = await axios.get(FORWARDDEST_ENDPOINT);
+  res.send(response["data"]);
+});
+
+
 /*
 
 const cors = require('cors');
