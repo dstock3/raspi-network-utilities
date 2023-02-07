@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
-const PiHole = require("pihole");
 const axios = require('axios');
 const port = process.env.PORT || 3000;
 
@@ -17,54 +16,67 @@ const processRoute = async (queryType) => {
   return data
 }
 
-//Gives summary in raw format (no formatting)
+const apiFunctions = {
+  summary: {
+    name: "summaryRaw",
+    desc: "Gives summary in raw format (no formatting)",
+    route: "/",
+    nested: false
+  },
+  queries: {
+    name: "getAllQueries",
+    desc: "Get DNS query data",
+    route: "/queries",
+    nested: true
+  },
+  queryTypes: {
+    name: "getQueryTypes",
+    desc: "Shows number of queries that the Pi-hole's DNS server has processed",
+    route: "/query-types",
+    nested: false
+  },
+  querySources: {
+    name: "getQuerySources",
+    desc: "Data for top clients",
+    route: "/query-sources",
+    nested: false
+  },
+  overTime10mins: {
+    name: "overTimeData10mins",
+    desc: "Data for generating the domains/ads over time (10 mins)",
+    route: "/over-time-10-mins",
+    nested: false
+  },
+  topItems: {
+    name: "topItems",
+    desc: "Data for generating the top domains and/or ad lists",
+    route: "/top-items",
+    nested: false
+  },
+  forwardDestinations: {
+    name: "getForwardDestinations",
+    desc: "Shows the # of queries that have been forwarded to upstream DNS servers and the target IP address",
+    route: "/forward-destinations",
+    nested: false
+  }
+}
 
-app.get("/", async (req, res) => {
-  let data = await processRoute('summaryRaw')
-  res.send(data);  
-});
+for (const key in apiFunctions) {
+  if (apiFunctions[key].nested) {
+    app.get(apiFunctions[key].route, async (req, res) => {
+      let data = await processRoute(apiFunctions[key].name)
+      res.send(data["data"]);
+    });
+  } else {
+    app.get(apiFunctions[key].route, async (req, res) => {
+      let data = await processRoute(apiFunctions[key].name)
+      res.send(data);
+    });
+  }
+}
 
-app.get("/queries", async (req, res) => {
-  //Get DNS queries data
-  let QUERY_ENDPOINT = proccessEndpoint('getAllQueries')
-  let response = await axios.get(QUERY_ENDPOINT);
-  let data = response["data"]["data"];
-  res.send(data);
-});
-
-app.get("/query-types", async (req, res) => {
-  //Shows number of queries that the Pi-hole's DNS server has processed
-  let QUERYTYPE_ENDPOINT = proccessEndpoint('getQueryTypes')
-  let response = await axios.get(QUERYTYPE_ENDPOINT);
-  res.send(response["data"]);
-});
-
-app.get("/query-sources", async (req, res) => {
-  //Data for top clients
-  let QUERYSOURCE_ENDPOINT = proccessEndpoint('getQuerySources')
-  let response = await axios.get(QUERYSOURCE_ENDPOINT);
-  res.send(response["data"]);
-});
-
-app.get("/over-time-10-mins", async (req, res) => {
-  //Data for generating the domains/ads over time (10 mins)
-  let OVERTIME_ENDPOINT = proccessEndpoint('overTimeData10mins')
-  let response = await axios.get(OVERTIME_ENDPOINT);
-  res.send(response["data"]);
-});
-
-app.get("/top-items", async (req, res) => {
-  //Data for generating the top domains and/or ad lists
-  let TOPITEMS_ENDPOINT = proccessEndpoint('topItems')
-  let response = await axios.get(TOPITEMS_ENDPOINT);
-  res.send(response["data"]);
-});
-
-app.get("/forward-destinations", async (req, res) => {
-  //Shows the # of queries that have been forwarded to upstream DNS servers and the target IP address
-  let FORWARDDEST_ENDPOINT = proccessEndpoint('getForwardDestinations')
-  let response = await axios.get(FORWARDDEST_ENDPOINT);
-  res.send(response["data"]);
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`);
 });
 
 
@@ -167,6 +179,3 @@ app.get("/queries", async (req, res) => {
 
 */
 
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
