@@ -28,5 +28,6 @@ const processTryCatch = async (res, funct, isNested=false) => {
 }
 
 module.exports = {
+    processRoute,
     processTryCatch
 };
