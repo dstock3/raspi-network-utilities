@@ -13,6 +13,20 @@ const processRoute = async (queryType) => {
     return data
 }
 
+const processTryCatch = async (res, funct, isNested=false) => {
+    try {
+      let data = await processRoute(funct.name)
+      if (isNested) {
+        res.send(data["data"]);
+      } else { 
+        res.send(data); 
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ error: "An error occurred processing the request" });
+    }
+}
+
 module.exports = {
-    processRoute
+    processTryCatch
 };
