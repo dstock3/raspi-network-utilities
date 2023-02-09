@@ -1,0 +1,20 @@
+{
+    "manifest_version": 2,
+    "name": "Manual Whitelist Extension",
+    "description": "A Chrome extension that enables users to manually whitelist false positives",
+    "version": "1.0.0",
+  
+    "browser_action": {
+      "default_popup": "popup.html"
+    },
+    "permissions": [
+      "activeTab"
+    ],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "web_accessible_resources": [
+      "popup.html",
+      "popup.js",
+      "popup.css"
+    ]
+}
+  
