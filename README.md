@@ -1,8 +1,8 @@
-Raspi-Network-Utilities
+## Raspi-Network-Utilities
 
 The goal of this project is to provide an easy-to-use set of tools for interacting with a Raspberry Pi-powered network. It includes a server and a Chrome extension, which together allow users to perform network tasks from the comfort of their browser.
 
-Getting Started
+## Getting Started
 
 Prerequisites
 
@@ -10,11 +10,11 @@ A Raspberry Pi with a Raspbian-based operating system installed
 Node.js and npm installed on the Raspberry Pi
 A Google Chrome browser
 
-Installing
+## Installing
 
 Clone this repository to your Raspberry Pi:
 
-$ git clone https://github.com/yourusername/Raspi-Network-Utilities.git
+$ git clone (https://github.com/dstock3/Raspi-Network-Utilities.git)
 
 
 Navigate to the project directory and install the necessary dependencies:
@@ -38,11 +38,11 @@ Open the extension popup by clicking on the browser action icon in the top right
 
 Enter a domain in the form and click "Submit" to manually whitelist the domain.
 
-Deployment
+## Deployment
 
 This project is meant to be run on a local network, and as such does not include any security measures to protect against malicious requests. It is recommended to only use it on networks you trust.
 
-Built With
+## Built With
 
 Node.js - The JavaScript runtime used for the server
 Express - The web framework used for the server
