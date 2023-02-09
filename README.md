@@ -1,13 +1,50 @@
-This is a Node.js server-side package that leverages the Pi-Hole API to retrieve data from a Pi-hole DNS server. It uses the Express library to define endpoints for the API, and Axios to make GET requests to the Pi-hole API.
+Raspi-Network-Utilities
 
-It starts by requiring the necessary dependencies: Express, Dotenv, and Axios. The Dotenv library is used to load environment variables defined in a .env file, and Express is used to define and handle the API routes. Axios is used to make GET requests to the Pi-hole API.
+The goal of this project is to provide an easy-to-use set of tools for interacting with a Raspberry Pi-powered network. It includes a server and a Chrome extension, which together allow users to perform network tasks from the comfort of their browser.
 
-A function called proccessEndpoint is defined to generate the endpoint URL to be used in the Axios GET request. It takes in 3 parameters: queryType which specifies the type of query to be made, pw which is the password for the Pi-hole API, and endpoint which is the base URL of the Pi-hole API. It returns the complete endpoint URL, including the query type and authentication password.
+Getting Started
 
-Another function called processRoute is defined, which takes in queryType as a parameter and uses the proccessEndpoint function to generate the endpoint URL, then uses Axios to make a GET request to the Pi-hole API and returns the response data.
+Prerequisites
 
-An object apiFunctions is defined, which lists various endpoints for the Pi-hole API and their corresponding descriptions, routes, and whether they are nested (i.e., whether the response data is nested within another object).
+A Raspberry Pi with a Raspbian-based operating system installed
+Node.js and npm installed on the Raspberry Pi
+A Google Chrome browser
 
-A for-loop iterates over the keys of the apiFunctions object and uses the Express library to define the API routes. For each endpoint, if it is nested, the processRoute function is called and the nested data is sent as a response to the client. If it is not nested, the response will be the entire data returned from the processRoute function.
+Installing
 
-Finally, the Express app is started on the specified port, which is either taken from the PORT environment variable or defaulted to 3000, and logs a message indicating that the server is running.
+Clone this repository to your Raspberry Pi:
+
+$ git clone https://github.com/yourusername/Raspi-Network-Utilities.git
+
+
+Navigate to the project directory and install the necessary dependencies:
+
+$ cd Raspi-Network-Utilities
+$ npm install
+
+Create a .env file in the project root directory and include the following information:
+
+WEBPASSWORD=YOUR_PASSWORD
+ENDPOINT=http://YOUR_RASPBERRY_PI_IP_ADDRESS:3000/admin
+
+Start the server:
+$ npm start
+
+In Google Chrome, go to chrome://extensions/ and enable "Developer mode".
+
+Click on "Load unpacked" and select the ext directory from the Raspi-Network-Utilities project.
+
+Open the extension popup by clicking on the browser action icon in the top right corner of the browser.
+
+Enter a domain in the form and click "Submit" to manually whitelist the domain.
+
+Deployment
+
+This project is meant to be run on a local network, and as such does not include any security measures to protect against malicious requests. It is recommended to only use it on networks you trust.
+
+Built With
+
+Node.js - The JavaScript runtime used for the server
+Express - The web framework used for the server
+Axios - The HTTP client used for making requests
+Google Chrome - The browser used for the extension
