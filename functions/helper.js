@@ -2,10 +2,10 @@ const axios = require('axios');
 const dotenv = require("dotenv");
 dotenv.config();
 
-const proccessEndpoint = (queryType, pw=process.env.WEBPASSWORD, endpoint=process.env.ENDPOINT) => {
+const proccessEndpoint = (queryType, pw=process.env.WEBPASSWORD, endpoint=(process.env.ENDPOINT + ".php")) => {
     return endpoint + `?${queryType}&auth=${pw}`
 }
-  
+
 const processRoute = async (queryType) => {
     let endpoint = proccessEndpoint(queryType)
     let response = await axios.get(endpoint);

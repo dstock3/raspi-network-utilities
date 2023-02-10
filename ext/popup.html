@@ -5,16 +5,26 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <div class="container">
-      <h1>Manual Whitelist</h1>
-      <form>
-        <div class="form-group">
-          <label for="domainInput">Domain:</label>
-          <input type="text" id="domainInput" placeholder="Enter the domain to whitelist">
+    <main class="ext-container">
+      <h2>
+        <span>Pi-</span>hole Plus
+      </h1>
+      <div class="enable-control">
+        <div class="main-switch">
+          <div class="switch-container enabled">
+            <div class="switch-handle">
+            </div>
+            <div class="switch-body">
+            </div>
+          </div>
+
+          <div class="switch-label-container">
+            <span class="switch-label" id="enable">Enable</span>
+            <span class="switch-label" id="disable">Disable</span>
+          </div>
         </div>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+      </div>
+    </main>
     <script src="popup.js"></script>
   </body>
 </html>

@@ -24,7 +24,6 @@ app.get("/domain-count", async (req, res) => {
     let data = await processRoute(funct.apiFunctions.summary.name)
     res.send({ domains_being_blocked: data.domains_being_blocked });
   } catch (error) {
-    console.error(error);
     res.status(500).send({ error: "An error occurred processing the request" });
   }
 });
@@ -34,7 +33,6 @@ app.get("/ads-blocked", async (req, res) => {
     let data = await processRoute(funct.apiFunctions.summary.name)
     res.send({ ads_blocked_today: data.ads_blocked_today });
   } catch (error) {
-    console.error(error);
     res.status(500).send({ error: "An error occurred processing the request" });
   }
 });
@@ -44,7 +42,6 @@ app.get("/ads-percentage", async (req, res) => {
     let data = await processRoute(funct.apiFunctions.summary.name)
     res.send({ ads_percentage_today: data.ads_percentage_today });
   } catch (error) {
-    console.error(error);
     res.status(500).send({ error: "An error occurred processing the request" });
   }
 });

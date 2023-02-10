@@ -25,7 +25,7 @@ $ npm install
 Create a .env file in the project root directory and include the following information:
 
 WEBPASSWORD=YOUR_PASSWORD
-ENDPOINT=http://YOUR_RASPBERRY_PI_IP_ADDRESS:3000/admin
+ENDPOINT=http://YOUR_RASPBERRY_PI_IP_ADDRESS:3000/admin/api.php
 
 Start the server:
 $ npm start

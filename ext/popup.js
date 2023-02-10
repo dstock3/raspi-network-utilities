@@ -1,12 +1,4 @@
-const form = document.querySelector('form');
-const domainInput = document.querySelector('#domainInput');
+const axios = require('axios');
+const dotenv = require("dotenv");
+dotenv.config();
 
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-
-  const domain = domainInput.value;
-
-  chrome.runtime.sendMessage({ type: 'whitelist', domain });
-
-  window.close();
-});
