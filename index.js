@@ -1,10 +1,15 @@
 const express = require("express");
+const cors = require('cors');
 const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
 const port = process.env.PORT || 3000;
 const funct = require("./functions/apiFunctions");
 const { processRoute, processTryCatch } = require("./functions/helper");
+
+app.use(cors({
+  origin: process.env.CORS_ORIGIN
+}));
 
 for (const key in funct.apiFunctions) {
   const thisFunction = funct.apiFunctions[key]
