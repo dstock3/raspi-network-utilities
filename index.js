@@ -24,6 +24,15 @@ for (const key in funct.apiFunctions) {
   }
 }
 
+app.get("/status", async (req, res) => {
+  try {
+    let data = await processRoute(funct.apiFunctions.summary.name)
+    res.send({ status: data.status });
+  } catch (error) {
+    res.status(500).send({ error: "An error occurred processing the request" });
+  }
+});
+
 app.get("/domain-count", async (req, res) => {
   try {
     let data = await processRoute(funct.apiFunctions.summary.name)
