@@ -27,7 +27,23 @@ const processTryCatch = async (res, funct, isNested=false) => {
     }
 }
 
+const getSpeedRating = (speed) => {
+  if (speed < 5) {
+    return "Poor";
+  } else if (speed < 25) {
+    return "Fair";
+  } else if (speed < 50) {
+    return "Good";
+  } else if (speed < 100) {
+    return "Very good";
+  } else {
+    return "Excellent";
+  }
+}
+
+
 module.exports = {
     processRoute,
-    processTryCatch
+    processTryCatch,
+    getSpeedRating
 };

@@ -7,7 +7,7 @@ const { exec } = require('child_process');
 const FastSpeedtest = require("fast-speedtest-api");
 const port = process.env.PORT || 3000;
 const funct = require("./functions/apiFunctions");
-const { processRoute, processTryCatch } = require("./functions/helper");
+const { processRoute, processTryCatch, getSpeedRating } = require("./functions/helper");
 
 app.use(cors({
   origin: process.env.CORS_ORIGIN
@@ -26,12 +26,13 @@ app.get("/speedtest", async (req, res) => {
     });
 
     const speed = await speedtest.getSpeed();
+    const rating = getSpeedRating(speed);
     const roundedSpeed = Math.round(speed);
-    res.send({ speed: `${roundedSpeed} Mbps` });
+    res.send({ speed: `${roundedSpeed} Mbps`, rating: rating });
   } catch (error) {
     res.status(500).send({ error: "An error occurred processing the request" });
   }
-})
+});
 
 for (const key in funct.apiFunctions) {
   const thisFunction = funct.apiFunctions[key]
@@ -44,7 +45,7 @@ for (const key in funct.apiFunctions) {
       processTryCatch(res, thisFunction)
     });
   }
-}
+};
 
 app.get("/status", async (req, res) => {
   try {
