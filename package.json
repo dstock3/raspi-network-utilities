@@ -17,7 +17,6 @@
     "fast-speedtest-api": "^0.3.2",
     "https": "^1.0.0",
     "pihole": "^1.0.0",
-    "request": "^2.88.2",
-    "speedtest-net": "^2.2.0"
+    "request": "^2.88.2"
   }
 }
