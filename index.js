@@ -16,13 +16,13 @@ app.use(cors({
 app.get("/speedtest", async (req, res) => {
   try {
     const speedtest = new FastSpeedtest({
-      token: process.env.SPEEDTEST_TOKEN, // required
-      verbose: false, // default: false
-      timeout: 10000, // default: 5000
-      https: true, // default: true
-      urlCount: 5, // default: 5
-      bufferSize: 8, // default: 8
-      unit: FastSpeedtest.UNITS.Mbps, // default: Bps
+      token: process.env.SPEEDTEST_TOKEN, 
+      verbose: false, 
+      timeout: 10000, 
+      https: true, 
+      urlCount: 5,
+      bufferSize: 8, 
+      unit: FastSpeedtest.UNITS.Mbps, 
     });
 
     const speed = await speedtest.getSpeed();
