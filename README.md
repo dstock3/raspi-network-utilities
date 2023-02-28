@@ -36,8 +36,6 @@ Click on "Load unpacked" and select the ext directory from the Raspi-Network-Uti
 
 Open the extension popup by clicking on the browser action icon in the top right corner of the browser.
 
-Enter a domain in the form and click "Submit" to manually whitelist the domain.
-
 ## Deployment
 
 This project is meant to be run on a local network, and as such does not include any security measures to protect against malicious requests. It is recommended to only use it on networks you trust.
