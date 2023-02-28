@@ -9,9 +9,7 @@ const port = process.env.PORT || 3000;
 const funct = require("./functions/apiFunctions");
 const { processRoute, processTryCatch, getSpeedRating } = require("./functions/helper");
 
-app.use(cors({
-  origin: process.env.CORS_ORIGIN
-}));
+app.use(cors());
 
 app.get("/speedtest", async (req, res) => {
   try {

@@ -18,5 +18,8 @@
     "https": "^1.0.0",
     "pihole": "^1.0.0",
     "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "pm2": "^5.2.2"
   }
 }
